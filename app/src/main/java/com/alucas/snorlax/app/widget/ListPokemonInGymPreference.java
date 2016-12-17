@@ -17,29 +17,29 @@ import com.alucas.snorlax.module.feature.gym.GymManager;
 import com.alucas.snorlax.module.feature.gym.GymPersistence;
 import com.google.gson.Gson;
 
-public class ButtonPreference extends Preference {
+public class ListPokemonInGymPreference extends Preference {
 	@Inject
 	Gson mGson;
 	@Inject
 	GymManager mGymManager;
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public ButtonPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public ListPokemonInGymPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		init(context);
 	}
 
-	public ButtonPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public ListPokemonInGymPreference(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(context);
 	}
 
-	public ButtonPreference(Context context, AttributeSet attrs) {
+	public ListPokemonInGymPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 
-	public ButtonPreference(Context context) {
+	public ListPokemonInGymPreference(Context context) {
 		super(context);
 		init(context);
 	}

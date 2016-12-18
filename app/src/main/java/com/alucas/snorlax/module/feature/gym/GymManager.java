@@ -1,28 +1,30 @@
 package com.alucas.snorlax.module.feature.gym;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import android.util.LongSparseArray;
-
 @Singleton
 public class GymManager {
-	private LongSparseArray<GymData> mPokemonsInGym = new LongSparseArray<>();
+	private Map<Long, GymData> mPokemonsInGym = new HashMap<>();
 
 	@Inject
 	public GymManager() {
 		// Must be present because dependency injection
 	}
 
-	public void initPokemonInGym(final LongSparseArray<GymData> pokemons) {
-		mPokemonsInGym = pokemons.clone();
+	public void initPokemonInGym(final Map<Long, GymData> pokemons) {
+		mPokemonsInGym = pokemons;
 	}
 
 	public void removePokemonInGym(final long pokemonUID) {
 		mPokemonsInGym.remove(pokemonUID);
 	}
 
-	public void savePokemonInGym(final long pokemonUID, GymData gymData) {
+	public void addPokemonInGym(final long pokemonUID, GymData gymData) {
 		mPokemonsInGym.put(pokemonUID, gymData);
 	}
 
@@ -34,11 +36,7 @@ public class GymManager {
 		return mPokemonsInGym.get(pokemonUID);
 	}
 
-	public int getPokemonInGymSize() {
-		return mPokemonsInGym.size();
-	}
-
-	public GymData getPokemonInGymById(final int id) {
-		return getPokemonInGym(mPokemonsInGym.keyAt(id));
+	public Set<Long> getPokemonInGymUID() {
+		return mPokemonsInGym.keySet();
 	}
 }

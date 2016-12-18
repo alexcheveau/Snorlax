@@ -5,6 +5,8 @@
 	package="com.alucas.snorlax"
 	>
 
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 	<application
 		android:name="com.alucas.snorlax.app.SnorlaxApp"
 		android:icon="@mipmap/ic_launcher"

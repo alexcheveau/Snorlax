@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-class GymData implements Serializable {
+public class GymData implements Serializable {
 	private static final String GYM_NAME_UNKNOWN = "?";
 
 	public final transient String id;
@@ -20,14 +20,14 @@ class GymData implements Serializable {
 	@Nullable
 	public final Double longitude;
 
-	GymData(final String id, final String name, final Double latitude, final Double longitude) {
-		this.id = id;
-		this.name = name;
-		this.latitude = latitude;
-		this.longitude = longitude;
+	GymData(final String gymId, @Nullable final String gymName, @Nullable final Double gymLatitude, @Nullable final Double gymLongitude) {
+		this.id = gymId;
+		this.name = gymName;
+		this.latitude = gymLatitude;
+		this.longitude = gymLongitude;
 	}
 
-	GymData(final String id) {
-		this(id, GYM_NAME_UNKNOWN, 0.0, 0.0);
+	GymData(final String gymId) {
+		this(gymId, GYM_NAME_UNKNOWN, 0.0, 0.0);
 	}
 }

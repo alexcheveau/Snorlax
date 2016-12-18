@@ -1,5 +1,7 @@
 package com.alucas.snorlax.app.widget;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import android.annotation.TargetApi;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.alucas.snorlax.R;
 import com.alucas.snorlax.app.SnorlaxApp;
+import com.alucas.snorlax.module.feature.gym.GymData;
 import com.alucas.snorlax.module.feature.gym.GymManager;
 import com.alucas.snorlax.module.feature.gym.GymPersistence;
 import com.google.gson.Gson;
@@ -47,7 +50,10 @@ public class ListPokemonInGymPreference extends Preference {
 	private void init(Context context) {
 		((SnorlaxApp) context.getApplicationContext()).getComponent().inject(this);
 
-		mGymManager.initPokemonInGym(GymPersistence.loadPokemonInGym(context, mGson));
+		final Map<Long, GymData> pokemonsInGym = GymPersistence.loadPokemonInGym(context, context.getResources(), mGson);
+		if (pokemonsInGym != null) {
+			mGymManager.initPokemonInGym(pokemonsInGym);
+		}
 
 		setWidgetLayoutResource(R.layout.preference_button);
 	}
@@ -66,6 +72,6 @@ public class ListPokemonInGymPreference extends Preference {
 //		final PendingIntent posPendingIntent = PendingIntent.getActivity(mPokemonGoContext, 0, posIntent, 0);
 
 		button.setClickable(true);
-		button.setOnClickListener(view -> Toast.makeText(getContext(), "Nb pokemon in gym : " + mGymManager.getPokemonInGymSize(), Toast.LENGTH_SHORT).show());
+		button.setOnClickListener(view -> Toast.makeText(getContext(), "Nb pokemon in gym : " + mGymManager.getPokemonInGymUID().size(), Toast.LENGTH_SHORT).show());
 	}
 }

@@ -34,6 +34,10 @@ import rx.Observable;
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 final class HomeDialog {
 
+	HomeDialog() {
+		throw new AssertionError("No instances");
+	}
+
 	@SuppressLint("InflateParams")
 	static AlertDialog showDonation(Context context) {
 		return new AlertDialog.Builder(context, R.style.Snorlax_Dialog)
@@ -74,9 +78,5 @@ final class HomeDialog {
 			.filter(dialog -> dialog != null)
 			.filter(Dialog::isShowing)
 			.forEach(Dialog::dismiss);
-	}
-
-	HomeDialog() {
-		throw new AssertionError("No instances");
 	}
 }

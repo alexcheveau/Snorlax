@@ -121,9 +121,12 @@ public class GymPersistence implements Feature {
 
 	private static Map<Long, GymData> loadPokemonInGymFile(final Context context, final Gson gson, final File pokemonInGymFile) {
 		try (final Reader reader = new FileReader(pokemonInGymFile)) {
-			return gson.fromJson(reader, TYPE_POKEMON_IN_GYM);
+			final Map<Long, GymData> pokemonInGym = gson.fromJson(reader, TYPE_POKEMON_IN_GYM);
+			if (pokemonInGym != null) {
+				return pokemonInGym;
+			}
 		} catch (IOException | JsonIOException | JsonSyntaxException e) {
-			e.printStackTrace();
+			Timber.d(e);
 		}
 
 		return new Hashtable<>();
@@ -174,6 +177,7 @@ public class GymPersistence implements Feature {
 		if (!pokemonInGymFile.setReadable(true, false)) {
 			Timber.d("Failed to set read permission");
 		}
+
 		if (!pokemonInGymFile.setWritable(true, false)) {
 			Timber.d("Failed to set write permission");
 		}

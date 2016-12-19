@@ -9,7 +9,8 @@ import com.google.gson.annotations.SerializedName;
 public class GymData implements Serializable {
 	private static final String GYM_NAME_UNKNOWN = "?";
 
-	public final transient String id;
+	@SerializedName("gymId")
+	public final String id;
 	@SerializedName("gymName")
 	@Nullable
 	public final String name;

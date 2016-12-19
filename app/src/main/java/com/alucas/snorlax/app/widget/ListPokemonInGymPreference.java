@@ -72,7 +72,6 @@ public class ListPokemonInGymPreference extends Preference {
 			return;
 		}
 
-
 		button.setClickable(true);
 		button.setOnClickListener(view -> {
 			final Map<Long, GymData> pokemonsInGym = GymPersistence.loadPokemonInGym(mContext, mContext.getResources(), mGson);

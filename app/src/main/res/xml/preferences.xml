@@ -100,7 +100,7 @@
 		android:title="@string/preference_gym_group">
 
 		<!--suppress AndroidElementNotAllowed -->
-		<com.alucas.snorlax.app.widget.ButtonPreference
+		<com.alucas.snorlax.app.widget.ListPokemonInGymPreference
 			android:summary="@string/preference_gym_pokemon_list_summary"
 			android:title="@string/preference_gym_pokemon_list_title"
 			/>

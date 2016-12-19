@@ -11,8 +11,13 @@ import android.support.v4.content.ContextCompat;
 
 import com.alucas.snorlax.R;
 
+import timber.log.Timber;
+
 public class Storage {
 	private static File publicDirectory;
+
+	private Storage() {
+	}
 
 	public static File getPublicDirectory(Resources resources) {
 		if (publicDirectory == null) {
@@ -30,13 +35,13 @@ public class Storage {
 	public static boolean isExternalStorageWritable(final Context context) {
 		final String state = Environment.getExternalStorageState();
 		if (!Environment.MEDIA_MOUNTED.equals(state)) {
-			Log.d("External storage not writable");
+			Timber.d("External storage not writable (%s)", state);
 			return false;
 		}
 
 		final int writePermission = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 		if (writePermission != PackageManager.PERMISSION_GRANTED) {
-			Log.d("Write external storage permission : " + writePermission);
+			Timber.d("Write external storage permission : %d", writePermission);
 			return false;
 		}
 
@@ -47,13 +52,13 @@ public class Storage {
 	public static boolean isExternalStorageReadable(final Context context) {
 		final String state = Environment.getExternalStorageState();
 		if (!Environment.MEDIA_MOUNTED.equals(state) && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-			Log.d("External storage not readable");
+			Timber.d("External storage not readable (%s)", state);
 			return false;
 		}
 
-		final int readPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		final int readPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE);
 		if (readPermission != PackageManager.PERMISSION_GRANTED) {
-			Log.d("Read external storage permission : " + readPermission);
+			Timber.d("Read external storage permission : %d", readPermission);
 			return false;
 		}
 

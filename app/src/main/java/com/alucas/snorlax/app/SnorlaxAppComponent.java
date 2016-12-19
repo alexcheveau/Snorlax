@@ -19,7 +19,7 @@ package com.alucas.snorlax.app;
 import javax.inject.Singleton;
 
 import com.alucas.snorlax.app.receiver.CollectDefenderReceiver;
-import com.alucas.snorlax.app.widget.ButtonPreference;
+import com.alucas.snorlax.app.widget.ListPokemonInGymPreference;
 import com.alucas.snorlax.common.dagger.GsonModule;
 import com.alucas.snorlax.module.context.pokemongo.PokemonGoContextModule;
 
@@ -34,5 +34,5 @@ import dagger.Component;
 public interface SnorlaxAppComponent {
 	void inject(CollectDefenderReceiver receiver);
 
-	void inject(ButtonPreference preference);
+	void inject(ListPokemonInGymPreference preference);
 }

@@ -1,5 +1,7 @@
 package com.alucas.snorlax.app.widget;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import android.annotation.TargetApi;
@@ -13,33 +15,42 @@ import android.widget.Toast;
 
 import com.alucas.snorlax.R;
 import com.alucas.snorlax.app.SnorlaxApp;
+import com.alucas.snorlax.module.feature.gym.GymData;
 import com.alucas.snorlax.module.feature.gym.GymManager;
 import com.alucas.snorlax.module.feature.gym.GymPersistence;
 import com.google.gson.Gson;
 
-public class ButtonPreference extends Preference {
+public class ListPokemonInGymPreference extends Preference {
 	@Inject
+	@SuppressWarnings("squid:S3306")
 	Gson mGson;
 	@Inject
+	@SuppressWarnings("squid:S3306")
 	GymManager mGymManager;
 
+	private Context mContext;
+
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public ButtonPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	@SuppressWarnings("unused")
+	public ListPokemonInGymPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		init(context);
 	}
 
-	public ButtonPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	@SuppressWarnings("unused")
+	public ListPokemonInGymPreference(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(context);
 	}
 
-	public ButtonPreference(Context context, AttributeSet attrs) {
+	@SuppressWarnings("unused")
+	public ListPokemonInGymPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 
-	public ButtonPreference(Context context) {
+	@SuppressWarnings("unused")
+	public ListPokemonInGymPreference(Context context) {
 		super(context);
 		init(context);
 	}
@@ -47,7 +58,7 @@ public class ButtonPreference extends Preference {
 	private void init(Context context) {
 		((SnorlaxApp) context.getApplicationContext()).getComponent().inject(this);
 
-		mGymManager.initPokemonInGym(GymPersistence.loadPokemonInGym(context, mGson));
+		this.mContext = context;
 
 		setWidgetLayoutResource(R.layout.preference_button);
 	}
@@ -61,11 +72,18 @@ public class ButtonPreference extends Preference {
 			return;
 		}
 
-//		final Uri posURI = Uri.parse("geo:" + gymLatitude + "," + gymLongitude + "?q=" + gymLatitude + "," + gymLongitude + "(" + gymName + ")");
-//		final Intent posIntent = new Intent(Intent.ACTION_VIEW, posURI).setPackage("com.google.android.apps.maps");
-//		final PendingIntent posPendingIntent = PendingIntent.getActivity(mPokemonGoContext, 0, posIntent, 0);
-
 		button.setClickable(true);
-		button.setOnClickListener(view -> Toast.makeText(getContext(), "Nb pokemon in gym : " + mGymManager.getPokemonInGymSize(), Toast.LENGTH_SHORT).show());
+		button.setOnClickListener(view -> {
+			final Map<Long, GymData> pokemonsInGym = GymPersistence.loadPokemonInGym(mContext, mContext.getResources(), mGson);
+			if (pokemonsInGym == null) {
+				Toast.makeText(getContext(), "Failed to load pokemons in gym", Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			mGymManager.initPokemonInGym(pokemonsInGym);
+			mGymManager.getPokemonInGymUID();
+
+			Toast.makeText(getContext(), "Nb pokemon in gym : " + mGymManager.getPokemonInGymUID().size(), Toast.LENGTH_SHORT).show();
+		});
 	}
 }

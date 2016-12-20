@@ -16,13 +16,13 @@
 
 package com.alucas.snorlax.module.feature.lure;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import android.content.res.Resources;
 
 import com.alucas.snorlax.R;
 import com.alucas.snorlax.module.context.snorlax.Snorlax;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import de.robv.android.xposed.XSharedPreferences;
 
@@ -40,7 +40,7 @@ final class LurePreferences {
 
 	boolean isEnabled() {
 		mPreferences.reload();
-		final boolean expected = mResources.getBoolean(R.bool.preference_lure_enable_default);
-		return expected == mPreferences.getBoolean(mResources.getString(R.string.preference_lure_enable_key), expected);
+		final boolean defaultValue = mResources.getBoolean(R.bool.preference_lure_enable_default);
+		return mPreferences.getBoolean(mResources.getString(R.string.preference_lure_enable_key), defaultValue);
 	}
 }

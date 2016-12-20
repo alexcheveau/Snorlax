@@ -49,19 +49,19 @@ final class RenamePreferences {
 
 	boolean isEnabled() {
 		mPreferences.reload();
-		final boolean expected = mResources.getBoolean(R.bool.preference_rename_enable_default);
-		return expected == mPreferences.getBoolean(mResources.getString(R.string.preference_rename_enable_key), expected);
+		final boolean defaultValue = mResources.getBoolean(R.bool.preference_rename_enable_default);
+		return mPreferences.getBoolean(mResources.getString(R.string.preference_rename_enable_key), defaultValue);
 	}
 
 	boolean isFavoriteEnabled() {
 		mPreferences.reload();
-		final boolean expected = mResources.getBoolean(R.bool.preference_rename_favorite_enable_default);
-		return expected == mPreferences.getBoolean(mResources.getString(R.string.preference_rename_favorite_enable_key), expected);
+		final boolean defaultValue = mResources.getBoolean(R.bool.preference_rename_favorite_enable_default);
+		return mPreferences.getBoolean(mResources.getString(R.string.preference_rename_favorite_enable_key), defaultValue);
 	}
 
 	boolean isNicknamedEnabled() {
 		mPreferences.reload();
-		final boolean expected = mResources.getBoolean(R.bool.preference_rename_already_enable_default);
-		return expected == mPreferences.getBoolean(mResources.getString(R.string.preference_rename_already_enable_key), expected);
+		final boolean defaultValue = mResources.getBoolean(R.bool.preference_rename_already_enable_default);
+		return mPreferences.getBoolean(mResources.getString(R.string.preference_rename_already_enable_key), defaultValue);
 	}
 }

@@ -2,7 +2,6 @@ package com.alucas.snorlax.module.feature.gym;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -36,7 +35,10 @@ public class GymManager {
 		return mPokemonsInGym.get(pokemonUID);
 	}
 
-	public Set<Long> getPokemonInGymUID() {
-		return mPokemonsInGym.keySet();
+	public GymData[] getPokemonInGym() {
+		final int nbGym = mPokemonsInGym.values().size();
+		final GymData[] gyms = new GymData[nbGym];
+
+		return mPokemonsInGym.values().toArray(gyms);
 	}
 }

@@ -40,6 +40,7 @@ class HomeViewPagerAdapter extends FragmentStatePagerAdapter {
 	}
 
 	@Override
+	@SuppressWarnings("squid:S00112")
 	public Fragment getItem(int position) {
 		switch (position) {
 			case 0:
@@ -47,7 +48,7 @@ class HomeViewPagerAdapter extends FragmentStatePagerAdapter {
 			case 1:
 				return new AdvancedFragment();
 			default:
-				throw new RuntimeException("Unknown fragment at position " + String.valueOf(position));
+				throw new RuntimeException("Unknown fragment at position " + position);
 		}
 	}
 

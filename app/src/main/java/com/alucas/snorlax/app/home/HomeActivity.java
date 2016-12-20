@@ -43,6 +43,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rx.Observable;
 
+@SuppressWarnings("squid:MaximumInheritanceDepth")
 public class HomeActivity extends AppCompatActivity {
 
 	@BindView(R.id.coordinator)
@@ -126,12 +127,12 @@ public class HomeActivity extends AppCompatActivity {
 
 			@Override
 			public void onTabUnselected(TabLayout.Tab tab) {
-
+				// Nothing special to do
 			}
 
 			@Override
 			public void onTabReselected(TabLayout.Tab tab) {
-
+				// Nothing special to do
 			}
 		});
 	}

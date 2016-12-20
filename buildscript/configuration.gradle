@@ -17,6 +17,8 @@ ext {
             // Collect defender intents
             intentCollectDefender     : "com.alucas.snorlax.BROADCAST_COLLECT_DEFENDER_BONUS",
 
+            extraListPokemonInGym     : "com.alucas.snorlax.EXTRA_LIST_POKEMON_IN_GYM",
+
             // Project build
             package                   : 'com.alucas.snorlax',
             minSdkVersion             : 19,

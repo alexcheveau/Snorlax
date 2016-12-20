@@ -34,6 +34,7 @@ import com.alucas.snorlax.module.feature.gym.GymPersistence;
 import com.alucas.snorlax.module.feature.lure.Lure;
 import com.alucas.snorlax.module.feature.mitm.Mitm;
 import com.alucas.snorlax.module.feature.mock.Mock;
+import com.alucas.snorlax.module.feature.pokebag.Pokebag;
 import com.alucas.snorlax.module.feature.rename.Rename;
 import com.alucas.snorlax.module.feature.safetynet.SafetyNet;
 import com.alucas.snorlax.module.feature.traffic.Traffic;
@@ -76,6 +77,8 @@ public class Snorlax implements IXposedHookLoadPackage, IXposedHookZygoteInit {
 	Eject mEject;
 	@Inject
 	CollectDefender mCollectDefender;
+	@Inject
+	Pokebag mPokebag;
 
 	private XSharedPreferences mXSharedPreferences;
 
@@ -118,7 +121,8 @@ public class Snorlax implements IXposedHookLoadPackage, IXposedHookZygoteInit {
 					mGym,
 					mGymPersistence,
 					mEject,
-					mCollectDefender
+					mCollectDefender,
+					mPokebag
 				);
 			}
 		});
@@ -138,7 +142,8 @@ public class Snorlax implements IXposedHookLoadPackage, IXposedHookZygoteInit {
 					mTraffic,
 					mGym,
 					mEject,
-					mCollectDefender
+					mCollectDefender,
+					mPokebag
 				);
 			}
 		});

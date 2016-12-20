@@ -20,15 +20,19 @@ public class GymData implements Serializable {
 	@SerializedName("gymLongitude")
 	@Nullable
 	public final Double longitude;
+	@SerializedName("pokemonNumber")
+	@Nullable
+	public final Integer pokemonNumber;
 
-	GymData(final String gymId, @Nullable final String gymName, @Nullable final Double gymLatitude, @Nullable final Double gymLongitude) {
+	GymData(final String gymId, @Nullable final String gymName, @Nullable final Double gymLatitude, @Nullable final Double gymLongitude, @Nullable final Integer pokemonNumber) {
 		this.id = gymId;
 		this.name = gymName;
 		this.latitude = gymLatitude;
 		this.longitude = gymLongitude;
+		this.pokemonNumber = pokemonNumber;
 	}
 
-	GymData(final String gymId) {
-		this(gymId, GYM_NAME_UNKNOWN, 0.0, 0.0);
+	GymData(final String gymId, final Integer pokemonNumber) {
+		this(gymId, GYM_NAME_UNKNOWN, 0.0, 0.0, pokemonNumber);
 	}
 }

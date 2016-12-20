@@ -12,7 +12,7 @@ ext {
             powermock: '1.6.5'
     ]
     libraryVersions = [
-            supportLib          : '24.2.1',
+            supportLib          : '25.1.0',
             xposed              : '82',
             rxJava              : '1.2.1',
             rxAndroid           : '1.2.1',

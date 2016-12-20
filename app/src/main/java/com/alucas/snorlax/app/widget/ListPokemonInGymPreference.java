@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceViewHolder;
@@ -13,8 +14,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alucas.snorlax.BuildConfig;
 import com.alucas.snorlax.R;
 import com.alucas.snorlax.app.SnorlaxApp;
+import com.alucas.snorlax.app.home.ListPokemonInGymActivity;
 import com.alucas.snorlax.module.feature.gym.GymData;
 import com.alucas.snorlax.module.feature.gym.GymManager;
 import com.alucas.snorlax.module.feature.gym.GymPersistence;
@@ -81,9 +84,16 @@ public class ListPokemonInGymPreference extends Preference {
 			}
 
 			mGymManager.initPokemonInGym(pokemonsInGym);
-			mGymManager.getPokemonInGymUID();
+			mGymManager.getPokemonInGym();
 
-			Toast.makeText(getContext(), "Nb pokemon in gym : " + mGymManager.getPokemonInGymUID().size(), Toast.LENGTH_SHORT).show();
+			if (mGymManager.getPokemonInGym().length == 0) {
+				Toast.makeText(getContext(), "You don't have any pokemon in gym", Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			final Intent mapIntent = new Intent(mContext, ListPokemonInGymActivity.class);
+			mapIntent.putExtra(BuildConfig.EXTRA_LIST_POKEMON_IN_GYM, mGymManager.getPokemonInGym());
+			mContext.startActivity(mapIntent);
 		});
 	}
 }

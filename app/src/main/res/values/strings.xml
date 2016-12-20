@@ -80,5 +80,6 @@
 	<string name="symbol_type_rock">💎</string>
 	<string name="symbol_type_steel">⬢</string>
 	<string name="symbol_type_water">💧</string>
+	<string name="title_activity_maps">Map</string>
 
 </resources>

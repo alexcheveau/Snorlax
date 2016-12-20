@@ -47,15 +47,26 @@
 				<action android:name="com.alucas.snorlax.BROADCAST_MAP"/>
 			</intent-filter>
 		</receiver>
-
 		<receiver
 			android:name="com.alucas.snorlax.app.receiver.CollectDefenderReceiver"
 			android:enabled="true"
-			tools:ignore="ExportedReceiver">
+			tools:ignore="ExportedReceiver"
+			>
 			<intent-filter>
 				<action android:name="com.alucas.snorlax.BROADCAST_COLLECT_DEFENDER_BONUS"/>
 			</intent-filter>
 		</receiver>
+
+		<meta-data
+			android:name="com.google.android.geo.API_KEY"
+			android:value="@string/google_maps_key"
+			/>
+
+		<activity
+			android:name=".app.home.ListPokemonInGymActivity"
+			android:label="@string/title_activity_maps"
+			>
+		</activity>
 	</application>
 
 </manifest>

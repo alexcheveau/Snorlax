@@ -121,8 +121,9 @@ public class Gym implements Feature {
 			final String gymName = gymDetails.getName();
 			final Double gymLatitude = gymDetails.getLatitude();
 			final Double gymLongitude = gymDetails.getLongitude();
+			final Integer pokemonNumber = pokemonData.getDisplayPokemonId();
 
-			return Observable.just(new Pair<>(pokemonData, new GymData(gymId, gymName, gymLatitude, gymLongitude)));
+			return Observable.just(new Pair<>(pokemonData, new GymData(gymId, gymName, gymLatitude, gymLongitude, pokemonNumber)));
 		}
 
 		return Observable.empty();
@@ -152,7 +153,7 @@ public class Gym implements Feature {
 				continue;
 			}
 
-			pokemons.add(new Pair<>(pokemonData, new GymData(pokemonData.getDeployedFortId())));
+			pokemons.add(new Pair<>(pokemonData, new GymData(pokemonData.getDeployedFortId(), pokemonData.getDisplayPokemonId())));
 		}
 
 		return Observable.from(pokemons);

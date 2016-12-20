@@ -18,6 +18,8 @@ android {
         versionCode config.versionCode
         versionName config.versionName
 
+        multiDexEnabled true
+
         // resConfig 'en'
         resValue 'string', 'app_name', config.name
         resValue 'string', 'app_desc', config.desc
@@ -35,6 +37,8 @@ android {
         buildConfigField 'String', 'INTENT_MAP_DATA', "\"${config.intentMapData}\""
 
         buildConfigField 'String', 'INTENT_COLLECT_DEFENDER', "\"${config.intentCollectDefender}\""
+
+        buildConfigField 'String', 'EXTRA_LIST_POKEMON_IN_GYM', "\"${config.extraListPokemonInGym}\""
 
         archivesBaseName = project.name.toLowerCase()
     }
@@ -144,4 +148,6 @@ dependencies {
 
     provided libraries.autoValueGson
     annotationProcessor libraries.autoValueGson
+    compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
 }

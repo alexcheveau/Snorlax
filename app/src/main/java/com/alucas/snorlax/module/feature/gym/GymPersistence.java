@@ -19,6 +19,7 @@ import android.content.res.Resources;
 import android.util.Pair;
 
 import com.alucas.snorlax.common.rx.RxFuncitons;
+import com.alucas.snorlax.module.context.pokemongo.PokemonGo;
 import com.alucas.snorlax.module.context.snorlax.Snorlax;
 import com.alucas.snorlax.module.feature.Feature;
 import com.alucas.snorlax.module.util.Log;
@@ -51,7 +52,7 @@ public class GymPersistence implements Feature {
 	private Subscription mSubscription;
 
 	@Inject
-	public GymPersistence(@Snorlax final Context context, @Snorlax Resources resources, final Gson gson, final Gym gym, final GymManager gymManager) {
+	public GymPersistence(@PokemonGo final Context context, @Snorlax Resources resources, final Gson gson, final Gym gym, final GymManager gymManager) {
 		this.mContext = context;
 		this.mResouces = resources;
 		this.mGson = gson;
@@ -103,17 +104,19 @@ public class GymPersistence implements Feature {
 		final Map<String, ?> pokemonsInGymRaw = settings.getAll();
 		for (final Map.Entry<String, ?> pokemonEntry : pokemonsInGymRaw.entrySet()) {
 			final String gymIdString = pokemonEntry.getKey();
-			Long gymId;
+			final Long gymId;
 			try {
 				gymId = Long.decode(gymIdString);
 			} catch (NumberFormatException e) {
-				Log.e(e);
+				Timber.e(e);
 				continue;
 			}
 
 			final GymData gymData = jsonToGymData(gson, (String) pokemonEntry.getValue());
 
 			pokemonsInGym.put(gymId, gymData);
+
+			Timber.d("Load pokemon { gymId : " + gymId + ", gymName : " + gymData.name + "}");
 		}
 
 		return pokemonsInGym;
@@ -145,7 +148,7 @@ public class GymPersistence implements Feature {
 		try (final Writer writer = new FileWriter(pokemonInGymFile)) {
 			gson.toJson(pokemonsInGym, TYPE_POKEMON_IN_GYM, writer);
 		} catch (IOException | JsonIOException | JsonSyntaxException e) {
-			Log.e(e);
+			Timber.e(e);
 		}
 	}
 
@@ -189,10 +192,10 @@ public class GymPersistence implements Feature {
 		try {
 			return gson.fromJson((String) gymDataJson, GymData.class);
 		} catch (JsonSyntaxException e) {
-			Log.e(e);
+			Timber.e(e);
 		}
 
-		return new GymData(gymDataJson);
+		return new GymData(gymDataJson, null);
 	}
 
 	@SuppressWarnings("unused")

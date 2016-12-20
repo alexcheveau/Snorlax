@@ -16,7 +16,8 @@
 
 package com.alucas.snorlax.module.feature.rename;
 
-import java.util.HashMap;
+import android.util.SparseIntArray;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -98,7 +99,7 @@ public final class Rename implements Feature, MitmListener {
 		GetInventoryResponse.Builder inventory = response.toBuilder();
 		InventoryDelta.Builder delta = inventory.getInventoryDelta().toBuilder();
 
-		HashMap<Integer, Integer> candyList = new HashMap<Integer, Integer>();
+		SparseIntArray candyList = new SparseIntArray();
 
 		for (int i = 0; i < delta.getInventoryItemsCount(); i++) {
 

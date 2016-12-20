@@ -17,7 +17,7 @@
 package com.alucas.snorlax.module.feature.rename;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import android.util.SparseIntArray;
 import java.util.List;
 import java.util.Locale;
 
@@ -74,7 +74,7 @@ final class RenameFormat {
 	}
 
 	@NonNull
-	String format(PokemonData pokemonData, HashMap<Integer, Integer> candyList) {
+	String format(PokemonData pokemonData, SparseIntArray candyList) {
 		final Pokemon pokemon = mPokemonFactory.with(pokemonData);
 		final String format = mRenamePreferences.getFormat();
 
@@ -111,7 +111,7 @@ final class RenameFormat {
 		return builder.toString();
 	}
 
-	private String processFormat(Pokemon pokemon, String command, HashMap<Integer, Integer> candyList) {
+	private String processFormat(Pokemon pokemon, String command, SparseIntArray candyList) {
 		final String target = command.toUpperCase(Locale.getDefault());
 
 		String processed = null;
@@ -389,8 +389,8 @@ final class RenameFormat {
 	}
 
 	@Nullable
-	private String processCandy(String target, Pokemon pokemon, HashMap<Integer, Integer> candyList) {
-		if(candyList == null || !candyList.containsKey(pokemon.getFamilyID()))
+	private String processCandy(String target, Pokemon pokemon, SparseIntArray candyList) {
+		if(candyList == null || candyList.indexOfKey(pokemon.getFamilyID()) < 0)
 			return "-";
 		else
 			return Decimals.format(candyList.get(pokemon.getFamilyID()), 1, 3, 0, 0);

@@ -1,5 +1,8 @@
 package com.alucas.snorlax.module.feature.pokebag;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -10,6 +13,7 @@ import com.alucas.snorlax.module.feature.mitm.MitmRelay;
 import com.alucas.snorlax.module.feature.mitm.MitmUtil;
 import com.alucas.snorlax.module.util.Log;
 
+import POGOProtos.Enums.PokemonIdOuterClass;
 import POGOProtos.Inventory.InventoryItemDataOuterClass.InventoryItemData;
 import POGOProtos.Inventory.InventoryItemOuterClass.InventoryItem;
 import POGOProtos.Networking.Requests.RequestTypeOuterClass.RequestType;
@@ -38,7 +42,7 @@ public class Pokebag implements Feature {
 			.getObservable()
 			.compose(getInventoryResponse())
 			.compose(onInventoryResponse())
-			.subscribe(mPokebagPersistence::addPokemon)
+			.subscribe(mPokebagPersistence::addPokemons)
 		;
 	}
 
@@ -56,14 +60,17 @@ public class Pokebag implements Feature {
 			;
 	}
 
-	private Observable.Transformer<GetInventoryResponse, PokebagData> onInventoryResponse() {
+	private Observable.Transformer<GetInventoryResponse, List<PokebagData>> onInventoryResponse() {
 		return observable -> observable
 			.filter(response -> response.getSuccess() && response.hasInventoryDelta())
 			.map(GetInventoryResponse::getInventoryDelta)
 			.flatMap(inventoryDelta -> Observable.from(inventoryDelta.getInventoryItemsList()))
 			.map(InventoryItem::getInventoryItemData)
 			.map(InventoryItemData::getPokemonData)
+			.filter(pokemonData -> pokemonData.getPokemonId() != PokemonIdOuterClass.PokemonId.MISSINGNO)
 			.map(PokebagData::new)
+			.buffer(5, TimeUnit.SECONDS)
+			.filter(datas -> !datas.isEmpty())
 			;
 	}
 }

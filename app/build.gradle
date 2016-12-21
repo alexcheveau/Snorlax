@@ -149,5 +149,5 @@ dependencies {
     provided libraries.autoValueGson
     annotationProcessor libraries.autoValueGson
     compile 'com.google.android.gms:play-services:10.0.1'
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:appcompat-v7:25.1.0'
 }

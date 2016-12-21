@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Type;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -122,11 +123,11 @@ class PokebagPersistence {
 		return pokemonFile;
 	}
 
-	void addPokemon(final PokebagData pokemonData) {
-		Log.d(LOG_PREFIX + "Add inventory pokemon : " + pokemonData.pokemonPokedexId);
+	void addPokemons(final List<PokebagData> pokemonsData) {
+		Log.d(LOG_PREFIX + "Add " + pokemonsData.size() + " pokemons");
 
 		final Set<PokebagData> inventoryPokemon = loadInventoryPokemon(mContext, mResouces, mGson);
-		inventoryPokemon.add(pokemonData);
+		inventoryPokemon.addAll(pokemonsData);
 		saveInventoryPokemon(mContext, mResouces, mGson, inventoryPokemon);
 	}
 }
